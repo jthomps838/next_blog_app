@@ -8,18 +8,17 @@ import MobileNavDropdown from '../MobileNavDropdown/MobileNavDropdown';
 
 const AuthLinks = () => {
   const [open, setOpen] = useState(false);
-  const status = 'unauthenticated';
 
   const clickHandler = () => {
     setOpen((prev) => !prev);
   };
   return (
     <>
-      <Login status={status} styles={styles} />
+      <Login styles={styles} />
       <button className={styles.burger} onClick={clickHandler}>
         <IconMenu_hamburger />
       </button>
-      <MobileNavDropdown status={status} styles={styles} open={open} />
+      <MobileNavDropdown styles={styles} open={open} />
     </>
   );
 };

@@ -1,10 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
+import { signOut, useSession } from 'next-auth/react';
 
-const Login = ({ status, styles }) => {
+import { UNAUTHENTICATED } from '@/constants';
+
+const Login = ({ styles }) => {
+  const { status } = useSession();
   return (
     <>
-      {status === 'unauthenticated' ? (
+      {status === UNAUTHENTICATED ? (
         <Link href='/login' className={styles.link}>
           Login
         </Link>
@@ -13,7 +17,9 @@ const Login = ({ status, styles }) => {
           <Link href='/write' className={styles.link}>
             Write
           </Link>
-          <span className={styles.link}>Logout</span>
+          <span className={styles.link} onClick={signOut}>
+            Logout
+          </span>
         </>
       )}
     </>

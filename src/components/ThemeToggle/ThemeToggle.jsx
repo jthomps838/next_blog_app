@@ -9,7 +9,7 @@ const ThemeToggle = () => {
   const { theme, toggle } = useTheme();
 
   return (
-    <section className={styles.container} onClick={() => toggle()}>
+    <section className={styles.container} onClick={toggle}>
       <Image src='/moon.png' alt='dark theme' width={14} height={14} />
       <section
         className={styles.ball}

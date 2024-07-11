@@ -11,3 +11,8 @@
     color: white;
     background-color: crimson;
 }
+
+.button:disabled {
+    background-color: var(--soft-text-color);
+    cursor: not-allowed;
+}
