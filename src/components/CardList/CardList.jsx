@@ -1,6 +1,7 @@
 import React from 'react';
 import styles from './cardList.module.css';
 import Card from '../Card/Card';
+import Pagination from '@/components/Pagination/Pagination';
 
 const FakeCard = {
   description:
@@ -20,6 +21,7 @@ const CardList = () => {
         <Card {...FakeCard} />
         <Card {...FakeCard} />
       </main>
+      <Pagination />
     </section>
   );
 };

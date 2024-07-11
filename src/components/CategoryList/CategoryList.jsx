@@ -13,7 +13,7 @@ const CategoryList = () => {
         <Suspense fallback={<h1>Loading...</h1>}>
           {categoryConfig &&
             categoryConfig.map((category) => (
-              <Category {...category} styles={styles} />
+              <Category {...category} styles={styles} hasImage />
             ))}
         </Suspense>
       </section>

@@ -9,6 +9,9 @@ const NavbarLinks = ({ styles }) => {
     <section className={styles.links}>
       <ThemeToggle />
       <Link className={styles.link} href='/'>
+        Home
+      </Link>
+      <Link className={styles.link} href='/'>
         Blogs
       </Link>
       <AuthLinks />

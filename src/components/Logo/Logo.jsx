@@ -8,7 +8,7 @@ const Logo = ({ styles }) => {
     <section className={styles.logo}>
       <h1 className={styles.header}>DevDiaries</h1>
       <h2 className={styles.subheader}>
-        by <Link href={socialConfig.website}>Josephmt.com</Link>
+        by <Link href={socialConfig.portfolio}>Josephmt.com</Link>
       </h2>
     </section>
   );
