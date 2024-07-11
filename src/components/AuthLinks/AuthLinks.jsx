@@ -1,9 +1,10 @@
 'use client';
 
 import { useState } from 'react';
-import Link from 'next/link';
 import styles from './authLinks.module.css';
 import IconMenu_hamburger from '../Icons/Burger';
+import Login from '../Login/Login';
+import MobileNavDropdown from '../MobileNavDropdown/MobileNavDropdown';
 
 const AuthLinks = () => {
   const [open, setOpen] = useState(false);
@@ -14,34 +15,11 @@ const AuthLinks = () => {
   };
   return (
     <>
-      {status === 'unauthenticated' ? (
-        <Link href='/login' className={styles.link}>
-          Login
-        </Link>
-      ) : (
-        <>
-          <Link href='/write' className={styles.link}>
-            Write
-          </Link>
-          <span className={styles.link}>Logout</span>
-        </>
-      )}
+      <Login status={status} styles={styles} />
       <button className={styles.burger} onClick={clickHandler}>
         <IconMenu_hamburger />
       </button>
-      {open ? (
-        <section className={styles.responsiveMenu}>
-          <Link href='/'>Blogs</Link>
-          {status === 'unauthenticated' ? (
-            <Link href='/login'>Login</Link>
-          ) : (
-            <>
-              <Link href='/write'>Write</Link>
-              <span className={styles.link}>Logout</span>
-            </>
-          )}
-        </section>
-      ) : null}
+      <MobileNavDropdown status={status} styles={styles} open={open} />
     </>
   );
 };
