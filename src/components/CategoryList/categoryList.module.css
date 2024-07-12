@@ -1,8 +1,10 @@
 .container {
+  min-height: 300px;
 }
 
 .title {
-  margin: 50px 0;
+  margin: 50px 0px;
+  font-size: 28px;
 }
 
 .categories {

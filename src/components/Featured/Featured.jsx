@@ -17,12 +17,14 @@ const Featured = async () => {
       <h1 className={styles.title}>{post?.title}</h1>
       <main className={styles.post}>
         <section className={styles.imgContainer}>
-          <Image
-            src={post?.img}
-            alt={post?.title}
-            className={styles.image}
-            fill
-          />
+          <Link href={`posts/${post?.slug}`} className={styles.readMore}>
+            <Image
+              src={post?.img}
+              alt={post?.title}
+              className={styles.image}
+              fill
+            />
+          </Link>
         </section>
         <section className={styles.textContainer}>
           <h2 className={styles.postTitle}>{post?.subtitle}</h2>
