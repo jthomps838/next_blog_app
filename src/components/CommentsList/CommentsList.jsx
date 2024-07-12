@@ -7,7 +7,7 @@ const CommentsList = ({ data, isLoading, styles }) => {
       {isLoading
         ? 'loading'
         : data?.map((item) => (
-            <main className={styles.comment} key={item._id}>
+            <main className={styles.comment} key={item.id}>
               <section className={styles.user}>
                 {item?.user?.image && (
                   <Image
@@ -18,10 +18,10 @@ const CommentsList = ({ data, isLoading, styles }) => {
                     className={styles.image}
                   />
                 )}
-                <setion className={styles.userInfo}>
+                <section className={styles.userInfo}>
                   <span className={styles.username}>{item.user.name}</span>
                   <span className={styles.date}>{item.createdAt}</span>
-                </setion>
+                </section>
               </section>
               <p className={styles.desc}>{item.desc}</p>
             </main>

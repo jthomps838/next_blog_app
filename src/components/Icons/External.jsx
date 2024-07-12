@@ -11,10 +11,10 @@ const ExternalIcon = ({ squared, className }) => {
     >
       <g
         fill='none'
-        fill-rule='evenodd'
+        fillRule='evenodd'
         stroke='currentColor'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeLinecap='round'
+        strokeLinejoin='round'
         transform='translate(3 3)'
       >
         <path d='m15.5.5v5h-5' transform='matrix(1 0 0 -1 0 6)' />

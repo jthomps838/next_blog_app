@@ -15,17 +15,20 @@ const LoginPage = () => {
     }
   }, [status]);
   if (status === 'loading') {
-    return <div className={styles.loading}>Loading...</div>;
+    return <span className={styles.loading}>Loading...</span>;
   }
 
   return (
-    <div className={styles.container}>
-      <div className={styles.wrapper}>
-        <div className={styles.socialButton} onClick={() => signIn('google')}>
+    <section className={styles.container}>
+      <main className={styles.wrapper}>
+        <button
+          className={styles.socialButton}
+          onClick={() => signIn('google')}
+        >
           Sign in with Google
-        </div>
-      </div>
-    </div>
+        </button>
+      </main>
+    </section>
   );
 };
 

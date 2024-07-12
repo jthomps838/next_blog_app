@@ -7,8 +7,11 @@ export const GET = async (req) => {
 
   const page = searchParams.get('page');
   const cat = searchParams.get('cat');
+  const isFeature = searchParams.get('is_featured');
+  const isEditor = searchParams.get('is_editor');
+  const isHot = searchParams.get('is_hot');
 
-  const POST_PER_PAGE = 2;
+  const POST_PER_PAGE = 3;
 
   const query = {
     take: POST_PER_PAGE,
@@ -18,6 +21,23 @@ export const GET = async (req) => {
     },
   };
 
+  if (isFeature) {
+    query.skip = 0;
+    query.where = {
+      isFeature: Boolean(isFeature),
+    };
+  }
+
+  if (isEditor) {
+    query.skip = 0;
+    query.where.isEditor = Boolean(isEditor);
+  }
+
+  if (isHot) {
+    query.skip = 0;
+    query.where = {};
+  }
+
   try {
     const [posts, count] = await prisma.$transaction([
       prisma.post.findMany(query),
@@ -25,10 +45,7 @@ export const GET = async (req) => {
     ]);
     return new NextResponse(JSON.stringify({ posts, count }, { status: 200 }));
   } catch (err) {
-    console.log(err);
-    return new NextResponse(
-      JSON.stringify({ message: 'Something went wrong!' }, { status: 500 })
-    );
+    return new NextResponse(JSON.stringify({ message: err }, { status: 500 }));
   }
 };
 
@@ -50,7 +67,6 @@ export const POST = async (req) => {
 
     return new NextResponse(JSON.stringify(post, { status: 200 }));
   } catch (err) {
-    console.log(err);
     return new NextResponse(
       JSON.stringify({ message: 'Something went wrong!' }, { status: 500 })
     );

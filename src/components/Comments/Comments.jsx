@@ -24,7 +24,7 @@ const Comments = ({ postSlug }) => {
   const { status } = useSession();
 
   const { data, mutate, isLoading } = useSWR(
-    `http://localhost:3000/api/comments?postSlug=${postSlug}`,
+    `${process.env.URL}/api/comments?postSlug=${postSlug}`,
     fetcher
   );
 
@@ -39,10 +39,10 @@ const Comments = ({ postSlug }) => {
   };
 
   return (
-    <div className={styles.container}>
+    <section className={styles.container}>
       <h1 className={styles.title}>Comments</h1>
       {status === 'authenticated' ? (
-        <div className={styles.write}>
+        <section className={styles.write}>
           <textarea
             placeholder='write a comment...'
             className={styles.input}
@@ -51,12 +51,12 @@ const Comments = ({ postSlug }) => {
           <button className={styles.button} onClick={handleSubmit}>
             Send
           </button>
-        </div>
+        </section>
       ) : (
         <Link href='/login'>Login to write a comment</Link>
       )}
       <CommentsList data={data} isLoading={isLoading} styles={styles} />
-    </div>
+    </section>
   );
 };
 

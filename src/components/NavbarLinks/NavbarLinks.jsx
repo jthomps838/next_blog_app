@@ -11,9 +11,6 @@ const NavbarLinks = ({ styles }) => {
       <Link className={styles.link} href='/'>
         Home
       </Link>
-      <Link className={styles.link} href='/'>
-        Blogs
-      </Link>
       <AuthLinks />
     </section>
   );

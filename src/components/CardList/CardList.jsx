@@ -7,13 +7,8 @@ import Pagination from '@/components/Pagination/Pagination';
 import { POST_PER_PAGE } from '@/constants';
 
 const CardList = async ({ page, cat }) => {
-  const { posts, count } = await getData(
-    `posts?page=${page}&cat=${cat || ''}`,
-    {
-      cache: 'no-store',
-    }
-  );
-
+  const { posts, count } = await getData(`posts?page=${page}&cat=${cat || ''}`);
+  console.log(count);
   const hasPrev = POST_PER_PAGE * (page - 1) > 0;
 
   const hasNext = POST_PER_PAGE * (page - 1) + POST_PER_PAGE < count;

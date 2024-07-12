@@ -5,29 +5,29 @@ import Image from 'next/image';
 import styles from './menuItem.module.css';
 
 const MenuItem = ({
-  href,
-  src,
+  slug,
+  img,
   title,
-  category,
-  username,
-  date,
+  catSlug,
+  userEmail,
+  createdAt,
   hasImage = false,
 }) => {
   return (
-    <Link href={href} className={styles.item}>
+    <Link href={`posts/${slug}`} className={styles.item}>
       {hasImage && (
         <section className={styles.imageContainer}>
-          <Image src={src} alt='' className={styles.image} fill />
+          <Image src={img} alt={title} className={styles.image} fill />
         </section>
       )}
       <section className={styles.textContainer}>
-        <span className={`${styles.category} ${styles[category]}`}>
-          {category}
+        <span className={`${styles.category} ${styles[catSlug]}`}>
+          {catSlug}
         </span>
         <h3 className={styles.postTitle}>{title}</h3>
         <section className={styles.detail}>
-          <span className={styles.username}>{username}</span>
-          <span className={styles.date}> - {date}</span>
+          <span className={styles.username}>{userEmail}</span>
+          <span className={styles.date}> - {createdAt?.substring(0, 10)}</span>
         </section>
       </section>
     </Link>

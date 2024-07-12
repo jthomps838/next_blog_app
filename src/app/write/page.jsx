@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import styles from './writePage.module.css';
 import { useEffect, useState } from 'react';
 import 'react-quill/dist/quill.bubble.css';
@@ -15,12 +14,12 @@ import {
 import { app } from '@/utils/firebase';
 import ReactQuill from 'react-quill';
 
-import categoryConfig from '@/config/categoryConfig';
 import Plus from '@/components/Icons/Plus';
 import ImageIcon from '@/components/Icons/ImageIcon';
 import ExternalIcon from '@/components/Icons/External';
 import VideoIcon from '@/components/Icons/Video';
 import { ICON_SIZE } from '@/constants';
+import { getData } from '@/utils/helpers';
 
 const WritePage = () => {
   const { status } = useSession();
@@ -31,7 +30,9 @@ const WritePage = () => {
   const [media, setMedia] = useState('');
   const [value, setValue] = useState('');
   const [title, setTitle] = useState('');
+  const [subtitle, setSubtitle] = useState('');
   const [catSlug, setCatSlug] = useState('');
+  const [categories, setCategories] = useState([]);
 
   useEffect(() => {
     const storage = getStorage(app);
@@ -68,8 +69,16 @@ const WritePage = () => {
     file && upload();
   }, [file]);
 
+  useEffect(() => {
+    const collectCategories = async () => {
+      const categories = await getData('categories');
+      return categories;
+    };
+    collectCategories().then((data) => setCategories(data));
+  }, []);
+
   if (status === 'loading') {
-    return <div className={styles.loading}>Loading...</div>;
+    return <span className={styles.loading}>Loading...</span>;
   }
 
   if (status === 'unauthenticated') {
@@ -89,10 +98,11 @@ const WritePage = () => {
       method: 'POST',
       body: JSON.stringify({
         title,
+        subtitle,
         desc: value,
         img: media,
         slug: slugify(title),
-        catSlug: catSlug || 'style', //If not selected, choose the general category
+        catSlug: catSlug || 'career', //If not selected, choose the general category
       }),
     });
 
@@ -107,19 +117,24 @@ const WritePage = () => {
       <input
         type='text'
         placeholder='Title'
-        className={styles.input}
+        className={`${styles.title} ${styles.input}`}
         onChange={(e) => setTitle(e.target.value)}
+      />
+      <input
+        type='text'
+        placeholder='Subtitle'
+        className={`${styles.subtitle} ${styles.input}`}
+        onChange={(e) => setSubtitle(e.target.value)}
       />
       <select
         className={styles.select}
         onChange={(e) => setCatSlug(e.target.value)}
       >
-        {categoryConfig &&
-          categoryConfig.map(({ shortName, title }) => (
-            <option value={shortName} key={shortName}>
-              {title}
-            </option>
-          ))}
+        {categories?.map(({ title, id, slug }) => (
+          <option value={slug} key={id}>
+            {title}
+          </option>
+        ))}
       </select>
       <section className={styles.editor}>
         <button className={styles.button} onClick={() => setOpen(!open)}>
@@ -138,10 +153,10 @@ const WritePage = () => {
                 <ImageIcon squared={ICON_SIZE} />
               </label>
             </button>
-            <button className={styles.addButton}>
+            <button className={styles.addButton} disabled>
               <ExternalIcon squared={ICON_SIZE} />
             </button>
-            <button className={styles.addButton}>
+            <button className={styles.addButton} disabled>
               <VideoIcon squared={ICON_SIZE} />
             </button>
           </section>

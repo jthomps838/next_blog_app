@@ -11,10 +11,10 @@ const PlusIcon = ({ squared, className }) => {
     >
       <g
         fill='none'
-        fill-rule='evenodd'
+        fillRule='evenodd'
         stroke='currentColor'
-        stroke-linecap='round'
-        stroke-linejoin='round'
+        strokeLinecap='round'
+        strokeLinejoin='round'
       >
         <path d='m5.5 10.5h10' />
         <path d='m10.5 5.5v10' />

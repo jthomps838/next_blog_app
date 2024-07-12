@@ -70,6 +70,7 @@ model Post {
   createdAt DateTime  @default(now())
   slug      String    @unique
   title     String
+  subtitle  String?
   desc      String
   img       String?
   views     Int       @default(0)
@@ -78,6 +79,8 @@ model Post {
   userEmail String
   user      User      @relation(fields: [userEmail], references: [email])
   comments  Comment[]
+  isFeature Boolean   @default(false)
+  isEditor  Boolean   @default(false)
 }
 
 model Comment {

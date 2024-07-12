@@ -1,80 +1,97 @@
-.container{
-    position: relative;
-    display: flex;
-    flex-direction: column;
-  }
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
 
-  .select{
-    margin-bottom: 50px;
-    padding: 10px 20px;
-    margin-left: 50px;
-    width: max-content;
-    border-radius: 3px;
-  }
+.select {
+  margin-bottom: 50px;
+  padding: 10px 20px;
+  margin-left: 50px;
+  width: max-content;
+  border-radius: 3px;
+}
 
-  .editor {
-    display: flex;
-    gap: 20px;
-    height: 60vh;
-    position: relative;
-  }
+.editor {
+  display: flex;
+  gap: 20px;
+  height: 60vh;
+  position: relative;
+}
 
-  .button,
-  .addButton {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    border: 2px solid var(--text-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-  }
+.button,
+.addButton {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 2px solid var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
 
-  .addButton {
-    border: 2px solid #1a8917;
-    color: #1a8917;
-  }
+.addButton {
+  border: 2px solid #1a8917;
+  color: #1a8917;
+}
 
-  .addButton:hover, .button:hover {
-    transform: scale(1.2);
-  }
+.addButton:hover,
+.button:hover {
+  transform: scale(1.2);
+}
 
-  .add {
-    display: flex;
-    gap: 20px;
-    background-color: var(--bg-color);
-    position: absolute;
-    z-index: 999;
-    width: 100%;
-    left: 50px;
-  }
+.addButton:disabled {
+  border-color: crimson;
+  color: crimson;
+  transform: none;
+  cursor: not-allowed;
+}
 
-  .input{
-    padding: 50px;
-    font-size: 64px;
-    border: none;
-    outline: none;
-    background-color: transparent;
-    color: var(--text-color);
-  }
+.add {
+  display: flex;
+  gap: 20px;
+  background-color: var(--bg-color);
+  position: absolute;
+  z-index: 999;
+  width: 100%;
+  left: 50px;
+}
 
-  .input::placeholder{
-    color: #b3b3b1;
-  }
+.title {
+  padding: 50px;
+  font-size: 64px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: var(--text-color);
+}
 
-  .textArea {
-    width: 100%;
-  }
+.subtitle {
+  padding: 50px;
+  font-size: 32px;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  color: var(--text-color);
+}
 
-  .publish{
-    position: absolute;
-    top: 0px;
-    right: 0px;
-    padding: 10px 20px;
-    border: none;
-    background-color: #1a8917;
-    color: white;
-    cursor: pointer;
-    border-radius: 20px;
-  }
+.input::placeholder {
+  color: #b3b3b1;
+}
+
+.textArea {
+  width: 100%;
+}
+
+.publish {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 10px 20px;
+  border: none;
+  background-color: #1a8917;
+  color: white;
+  cursor: pointer;
+  border-radius: 20px;
+}
