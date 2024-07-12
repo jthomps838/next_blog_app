@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 import styles from './blogPost.module.css';
 import Menu from '@/components/Menu/Menu';
-import Comments from '@/components/comments/Comments';
+import Comments from '@/components/Comments/Comments';
 import { getData } from '@/utils/helpers';
 
 const BlogPost = async ({ params }) => {
