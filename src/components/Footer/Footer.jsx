@@ -36,7 +36,7 @@ const Footer = () => {
           <span className={styles.listTitle}>Tags</span>
           {categoryConfig &&
             categoryConfig.map(({ href, title }) => (
-              <Link href={href} className={styles.link}>
+              <Link href={href} key={title} className={styles.link}>
                 {title}
               </Link>
             ))}
@@ -46,7 +46,7 @@ const Footer = () => {
           <span className={styles.listTitle}>Social</span>
           {socialConfig &&
             Object.keys(socialConfig).map((key) => (
-              <Link href={socialConfig[key]} className={styles.link}>
+              <Link href={socialConfig[key]} key={key} className={styles.link}>
                 {key}
               </Link>
             ))}

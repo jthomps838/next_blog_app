@@ -2,7 +2,7 @@
 
 import styles from './writePage.module.css';
 import { useEffect, useState } from 'react';
-import 'react-quill/dist/quill.bubble.css';
+import 'react-quill/dist/quill.snow.css';
 import { useRouter } from 'next/navigation';
 import { useSession } from 'next-auth/react';
 import {
@@ -83,6 +83,7 @@ const WritePage = () => {
 
   if (status === 'unauthenticated') {
     router.push('/');
+    return null;
   }
 
   const slugify = (str) =>
@@ -161,20 +162,22 @@ const WritePage = () => {
             </button>
           </section>
         )}
-        <ReactQuill
-          className={styles.textArea}
-          theme='bubble'
-          value={value}
-          onChange={setValue}
-          placeholder='Tell your story...'
-          modules={{
-            history: {
-              // Enable with custom configurations
-              delay: 2500,
-              userOnly: true,
-            },
-          }}
-        />
+        {typeof window !== 'undefined' ? (
+          <ReactQuill
+            className={styles.textArea}
+            theme='snow'
+            value={value}
+            onChange={setValue}
+            placeholder='Tell your story...'
+            modules={{
+              history: {
+                // Enable with custom configurations
+                delay: 2500,
+                userOnly: true,
+              },
+            }}
+          />
+        ) : null}
       </section>
       <button className={styles.publish} onClick={handleSubmit}>
         Publish

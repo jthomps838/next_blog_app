@@ -13,7 +13,7 @@ const MenuCategories = async ({ styles }) => {
       <section className={styles.categoryItems}>
         <Suspense fallback={<h1>Loading...</h1>}>
           {data?.map((category) => (
-            <Category {...category} styles={styles} />
+            <Category {...category} key={category?.id} styles={styles} />
           ))}
         </Suspense>
       </section>

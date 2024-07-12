@@ -4,12 +4,11 @@ import Image from 'next/image';
 
 import { CAT_WIDTH, CAT_HEIGHT } from '@/config/categoryConfig';
 
-const Category = ({ slug, title, img: src, styles, key, hasImage = false }) => {
+const Category = ({ slug, title, img: src, styles, hasImage = false }) => {
   return (
     <Link
       href={`/blog?cat=${slug}`}
       className={`${styles.category} ${styles[slug]}`}
-      key={key}
     >
       {hasImage && (
         <Image

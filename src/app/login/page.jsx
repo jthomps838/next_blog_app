@@ -13,7 +13,7 @@ const LoginPage = () => {
     if (status === 'authenticated') {
       router.push('/');
     }
-  }, [status]);
+  }, [status, router]);
   if (status === 'loading') {
     return <span className={styles.loading}>Loading...</span>;
   }
