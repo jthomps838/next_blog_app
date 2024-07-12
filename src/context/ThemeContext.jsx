@@ -9,15 +9,11 @@ export const ThemeContextProvider = ({ children }) => {
   const [theme, setTheme] = useState(LIGHT_THEME);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      setTheme(localStorage.getItem('theme') || LIGHT_THEME);
-    }
+    setTheme(localStorage.getItem('theme') || LIGHT_THEME);
   }, []);
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      localStorage.setItem('theme', theme);
-    }
+    localStorage.setItem('theme', theme);
   }, [theme]);
 
   const toggle = () =>

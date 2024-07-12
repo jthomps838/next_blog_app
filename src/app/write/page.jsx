@@ -11,8 +11,7 @@ import {
   uploadBytesResumable,
   getDownloadURL,
 } from 'firebase/storage';
-import { app } from '@/utils/firebase';
-import ReactQuill from 'react-quill';
+import dynamic from 'next/dynamic';
 
 import Plus from '@/components/Icons/Plus';
 import ImageIcon from '@/components/Icons/ImageIcon';
@@ -23,6 +22,8 @@ import { getData } from '@/utils/helpers';
 
 const WritePage = () => {
   const { status } = useSession();
+  const ReactQuill = dynamic(() => import('react-quill', { ssr: false }));
+  const { app } = dynamic(() => import('@/utils/firebase', { ssr: false }));
   const router = useRouter();
 
   const [open, setOpen] = useState(false);
@@ -35,39 +36,33 @@ const WritePage = () => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
-    const storage = getStorage(app);
-    const upload = () => {
-      const name = new Date().getTime() + file.name;
-      const storageRef = ref(storage, name);
+    if (file) {
+      const storage = getStorage(app);
+      const upload = () => {
+        const name = new Date().getTime() + file.name;
+        const storageRef = ref(storage, name);
 
-      const uploadTask = uploadBytesResumable(storageRef, file);
+        const uploadTask = uploadBytesResumable(storageRef, file);
 
-      uploadTask.on(
-        'state_changed',
-        (snapshot) => {
-          const progress =
-            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-          console.log('Upload is ' + progress + '% done');
-          switch (snapshot.state) {
-            case 'paused':
-              console.log('Upload is paused');
-              break;
-            case 'running':
-              console.log('Upload is running');
-              break;
+        uploadTask.on(
+          'state_changed',
+          (snapshot) => {
+            const progress =
+              (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+            console.log('Upload is ' + progress + '% done');
+          },
+          (error) => {},
+          () => {
+            getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+              setMedia(downloadURL);
+            });
           }
-        },
-        (error) => {},
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-            setMedia(downloadURL);
-          });
-        }
-      );
-    };
+        );
+      };
 
-    file && upload();
-  }, [file]);
+      upload();
+    }
+  }, [file, app]);
 
   useEffect(() => {
     const collectCategories = async () => {
@@ -103,7 +98,7 @@ const WritePage = () => {
         desc: value,
         img: media,
         slug: slugify(title),
-        catSlug: catSlug || 'career', //If not selected, choose the general category
+        catSlug: catSlug || 'career',
       }),
     });
 
@@ -146,7 +141,9 @@ const WritePage = () => {
             <input
               type='file'
               id='image'
-              onChange={(e) => setFile(e.target.files[0])}
+              onChange={(e) => {
+                setFile(e.target.files[0]);
+              }}
               style={{ display: 'none' }}
             />
             <button className={styles.addButton}>
@@ -162,22 +159,19 @@ const WritePage = () => {
             </button>
           </section>
         )}
-        {typeof window !== 'undefined' ? (
-          <ReactQuill
-            className={styles.textArea}
-            theme='snow'
-            value={value}
-            onChange={setValue}
-            placeholder='Tell your story...'
-            modules={{
-              history: {
-                // Enable with custom configurations
-                delay: 2500,
-                userOnly: true,
-              },
-            }}
-          />
-        ) : null}
+        <ReactQuill
+          className={styles.textArea}
+          theme='snow'
+          value={value}
+          onChange={setValue}
+          placeholder='Tell your story...'
+          modules={{
+            history: {
+              delay: 2500,
+              userOnly: true,
+            },
+          }}
+        />
       </section>
       <button className={styles.publish} onClick={handleSubmit}>
         Publish
